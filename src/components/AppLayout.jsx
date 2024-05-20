@@ -7,9 +7,15 @@ function AppLayout({ children, authentication = true }) {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   useEffect(() => {
-    if (authentication && !authStatus !== authentication) {
+    // if (authentication && !authStatus !== authentication) {
+    //   navigate("/login");
+    // } else if (!authentication && !authStatus === authentication) {
+    //   navigate("/");
+    // }
+
+    if (authentication && authStatus === false) {
       navigate("/login");
-    } else if (!authentication && !authStatus === authentication) {
+    } else if (authentication && authStatus === true) {
       navigate("/");
     }
     setLoading(false);

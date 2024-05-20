@@ -25,21 +25,33 @@ function Layout() {
   }, []);
 
   return !loading ? (
-    <div>
+    <AppLayout>
       <Header />
       <main>
-        todo :
         <Outlet />
       </main>
       <Footer />
-    </div>
-  ) : (
-    <AppLayout>
-      <Header />
-      <main>user not logined</main>
-      <Footer />
     </AppLayout>
-  );
+  ) : null;
+  // return !loading ? (
+  //   <div>
+  //     <Header />
+  //     <main>
+  //       {/* // Alll no authenticatied pages appears here */}
+  //       <Outlet />
+  //     </main>
+  //     <Footer />
+  //   </div>
+  // ) : (
+  //   <AppLayout>
+  //     <Header />
+  //     <main>
+  //       {/* all logned user will be in the directotry*/}
+  //       <Outlet />
+  //     </main>
+  //     <Footer />
+  //   </AppLayout>
+  // );
 }
 
 export default Layout;

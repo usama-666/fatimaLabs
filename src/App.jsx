@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import AddReport from "./pages/user/AddReport";
 import DownloadReport from "./pages/user/DownloadReport";
 import Reports from "./pages/user/Reports";
+import Home from "./pages/Home";
 
 function App() {
   const router = createBrowserRouter([
@@ -15,20 +16,32 @@ function App() {
       children: [
         {
           path: "/",
-          element: <AppLayout />,
+          element: <Home />,
           index: true,
         },
         {
           path: "/add-report",
-          element: <AddReport />,
+          element: (
+            <AppLayout authentication={true}>
+              <AddReport />
+            </AppLayout>
+          ),
         },
         {
           path: "download-report",
-          element: <DownloadReport />,
+          element: (
+            <AppLayout authentication={true}>
+              <DownloadReport />,
+            </AppLayout>
+          ),
         },
         {
           path: "reports",
-          element: <Reports />,
+          element: (
+            <AppLayout authentication={true}>
+              <Reports />,
+            </AppLayout>
+          ),
         },
       ],
     },
