@@ -1,57 +1,46 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
-import authService from "../firebase/authService";
+import authService from "../firebase/firebase";
 import { login, logout } from "../store/authSlice";
 import { Header, Footer } from "./index";
 import { Outlet } from "react-router-dom";
-import AppLayout from "./AppLayout";
+// import AuthLayout from "./AuthLayout";
+
 function Layout() {
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    authService
-      .getCurrentUser()
-      .then((userData) => {
-        console.log(userData);
-        if (userData) {
-          dispatch(login({ userData }));
-        } else {
-          dispatch(logout());
-        }
-      })
-      .finally(() => setLoading(false));
-  }, []);
+  // useEffect(() => {
+  //   const userData = authService.getCurrentUser().then((data) => {
+  //     console.log(data);
+  //   });
 
-  return !loading ? (
-    <AppLayout>
+  //   if (userData) {
+  //     setLoading(false);
+  //     console.log(userData);
+  //   }
+
+  //   // .then((userData) => {
+  //   //   // if (userData) {
+  //   //   //   dispatch(login(userData));
+  //   //   // } else {
+  //   //   //   dispatch(logout());
+  //   //   // }
+  //   //   console.log(userData);
+  //   // })
+  //   // .finally(() => setLoading(false));
+  // }, [dispatch]);
+
+  // return !loading ? (
+  return (
+    <div>
       <Header />
       <main>
         <Outlet />
       </main>
       <Footer />
-    </AppLayout>
-  ) : null;
-  // return !loading ? (
-  //   <div>
-  //     <Header />
-  //     <main>
-  //       {/* // Alll no authenticatied pages appears here */}
-  //       <Outlet />
-  //     </main>
-  //     <Footer />
-  //   </div>
-  // ) : (
-  //   <AppLayout>
-  //     <Header />
-  //     <main>
-  //       {/* all logned user will be in the directotry*/}
-  //       <Outlet />
-  //     </main>
-  //     <Footer />
-  //   </AppLayout>
-  // );
+    </div>
+  );
 }
 
 export default Layout;

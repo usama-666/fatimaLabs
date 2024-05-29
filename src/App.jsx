@@ -1,14 +1,25 @@
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { AppLayout } from "./components";
+import {
+  RouterProvider,
+  createBrowserRouter,
+  Navigate,
+} from "react-router-dom";
 import Layout from "./components/Layout";
+import AuthLayout from "./components/AuthLayout"; // Ensure correct import
 import Report from "./pages/Report";
 import Login from "./pages/Login";
 import AddReport from "./pages/user/AddReport";
 import DownloadReport from "./pages/user/DownloadReport";
 import Reports from "./pages/user/Reports";
 import Home from "./pages/Home";
+import UserHome from "./pages/user/UserHome";
+import { useSelector } from "react-redux";
 
 function App() {
+  const authStatus = useSelector((state) => state.status);
+  const userData = useSelector((state) => state.userData);
+  console.log(authStatus);
+  console.log(userData);
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -16,44 +27,55 @@ function App() {
       children: [
         {
           path: "/",
-          element: <Home />,
+          element: authStatus ? <Navigate to={"/user"} /> : <Home />,
           index: true,
         },
         {
-          path: "/add-report",
-          element: (
-            <AppLayout authentication={true}>
-              <AddReport />
-            </AppLayout>
-          ),
+          path: "/report",
+          element: <Report />,
         },
         {
-          path: "download-report",
-          element: (
-            <AppLayout authentication={true}>
-              <DownloadReport />,
-            </AppLayout>
-          ),
+          path: "/login",
+          element: authStatus === true ? <Navigate to={"/user"} /> : <Login />,
         },
         {
-          path: "reports",
+          path: "/user",
           element: (
-            <AppLayout authentication={true}>
-              <Reports />,
-            </AppLayout>
+            <AuthLayout authentication={true}>
+              <UserHome />
+            </AuthLayout>
           ),
+          children: [
+            {
+              path: "add-report",
+              element: (
+                <AuthLayout authentication={true}>
+                  <AddReport />
+                </AuthLayout>
+              ),
+            },
+            {
+              path: "download-report",
+              element: (
+                <AuthLayout authentication={true}>
+                  <DownloadReport />
+                </AuthLayout>
+              ),
+            },
+            {
+              path: "reports",
+              element: (
+                <AuthLayout authentication={true}>
+                  <Reports />
+                </AuthLayout>
+              ),
+            },
+          ],
         },
       ],
     },
-    {
-      path: "/report",
-      element: <Report />,
-    },
-    {
-      path: "/login",
-      element: <Login />,
-    },
   ]);
+
   return (
     <>
       <RouterProvider router={router} />

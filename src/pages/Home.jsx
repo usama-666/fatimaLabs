@@ -1,5 +1,13 @@
+import { Hero, Wrapper } from "../components";
+
 function Home() {
-  return <div>Home</div>;
+  return (
+    <div>
+      <Wrapper>
+        <Hero />
+      </Wrapper>
+    </div>
+  );
 }
 
 export default Home;

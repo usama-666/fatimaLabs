@@ -1,14 +1,16 @@
-import { useDispatch } from "react-redux";
-import authService from "../firebase/authService";
+import { useDispatch, useSelector } from "react-redux";
+import authService from "../firebase/firebase.js";
 import { logout as authLogout } from "../store/authSlice";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-function LogoutBtn() {
+function LogoutBtn({ className = "" }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
   const logoutHandler = async () => {
+    // const authStatus = useSelector((state) => state.status);
+
     try {
       await authService
         .logout()
@@ -25,7 +27,7 @@ function LogoutBtn() {
   };
   return (
     <button
-      className="inline-bock px-6 py-2 duration-200 hover:bg-blue-100 rounded-full"
+      className={`bg-teal-400 px-4 py-2 rounded-md text-white hover:bg-teal-500 ${className}`}
       onClick={logoutHandler}>
       Logout
     </button>

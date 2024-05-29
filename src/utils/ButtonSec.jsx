@@ -1,4 +1,4 @@
-function AuthButton({
+function ButtonSec({
   children,
   type = "button",
   className = "",
@@ -8,7 +8,7 @@ function AuthButton({
   return (
     <button
       type={type}
-      className={`bg-teal-400 px-4 py-2 rounded-md text-white hover:bg-teal-500 ${className} `}
+      className={`bg-gray-500 px-4 py-2 rounded-md text-white hover:bg-teal-500 ${className} `}
       onClick={onclick}
       {...props}>
       {children}
@@ -16,4 +16,4 @@ function AuthButton({
   );
 }
 
-export default AuthButton;
+export default ButtonSec;

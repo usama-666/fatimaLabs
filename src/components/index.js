@@ -1,7 +1,8 @@
 import Header from "./Header/Header";
 import Hero from "./Hero/Hero";
 import Footer from "./Footer/Footer";
-import AppLayout from "./AppLayout";
-import Container from "./Container/Container";
+import AuthLayout from "./AuthLayout";
+import Wrapper from "./Wrapper/Wrapper";
+import Login from "./Login/Login";
 
-export { Header, Hero, Footer, AppLayout, Container };
+export { Header, Hero, Footer, AuthLayout, Wrapper, Login };
